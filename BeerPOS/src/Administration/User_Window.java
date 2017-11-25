@@ -4,20 +4,75 @@
  * and open the template in the editor.
  */
 package Administration;
-import javax.swing.JOptionPane;
+import Connection.MySQL_Conexion;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+/*import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;*/
+import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
 /**
  *
  * @author isai
  */
 public class User_Window extends javax.swing.JFrame {
 
-    /**
-     * Creates new form User_Window
-     */
-    private User_Window() {
+    private javax.swing.table.DefaultTableModel Modelo;
+    public User_Window() {
         initComponents();
+        Modelo = (DefaultTableModel) jTable1.getModel();
+        cargarTable();
+        frm_popUp();
     }
-
+        private void cargarTable()
+    {
+            Modelo.setRowCount(0);
+            try {
+                
+              String sql = "SELECT user_name, password, role FROM Users ORDER BY created_at;";
+              Connection Conexion = MySQL_Conexion.getConnection();
+              Statement Estancia = Conexion.createStatement();
+              ResultSet Resultado = Estancia.executeQuery(sql);
+              
+              Object [] Renglones = new Object[Modelo.getColumnCount()];
+              
+              while(Resultado.next())
+              {
+                  Renglones[0] = Resultado.getString("user_name");
+                  Renglones[1] = Resultado.getString("password");
+                  Renglones[2] = Resultado.getString("role");
+                  Modelo.addRow(Renglones);
+              }
+              
+             }catch (ClassNotFoundException | SQLException ex) {
+               javax.swing.JOptionPane.showMessageDialog(this, "Error al intentar estalecer la conexion "+ ex.getMessage());
+            }
+    }
+        public void frm_popUp()
+        {
+            JPopupMenu popupMenu = new JPopupMenu();
+            JMenuItem menuItem1 = new JMenuItem("Editar");
+            JMenuItem menuItem2 = new JMenuItem("Eliminar");
+            menuItem1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(null,"Opción Editar");
+                }
+            });
+            menuItem2.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(null,"Opcion Borrar");
+                }
+            });
+            popupMenu.add(menuItem1);
+            popupMenu.add(menuItem2);
+            jTable1.setComponentPopupMenu(popupMenu);
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,9 +88,12 @@ public class User_Window extends javax.swing.JFrame {
         lblRole = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
-        txtRole = new javax.swing.JTextField();
         txtUser = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
+        cbxRole = new javax.swing.JComboBox<>();
+        pnlEditUser = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,17 +119,18 @@ public class User_Window extends javax.swing.JFrame {
 
         lblPassword.setText("Password:");
 
+        cbxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Cajero" }));
+
         javax.swing.GroupLayout pnlUserLayout = new javax.swing.GroupLayout(pnlUser);
         pnlUser.setLayout(pnlUserLayout);
         pnlUserLayout.setHorizontalGroup(
             pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUserLayout.createSequentialGroup()
+                .addGap(128, 128, 128)
                 .addGroup(pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlUserLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(lblPassword))
+                    .addComponent(lblPassword)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUserLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUser, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblRole, javax.swing.GroupLayout.Alignment.TRAILING))))
@@ -79,20 +138,20 @@ public class User_Window extends javax.swing.JFrame {
                 .addGroup(pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlUserLayout.createSequentialGroup()
                         .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtRole)
                     .addComponent(txtUser)
-                    .addComponent(txtPassword))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                    .addComponent(cbxRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlUserLayout.setVerticalGroup(
             pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUserLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlUserLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRole)
-                    .addComponent(txtRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUser)
@@ -105,18 +164,62 @@ public class User_Window extends javax.swing.JFrame {
                 .addGroup(pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(75, 75, 75))
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+
+        pnlEditUser.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar/Eliminar Usuario"));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "Usuario", "Contraseña", "Rol"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout pnlEditUserLayout = new javax.swing.GroupLayout(pnlEditUser);
+        pnlEditUser.setLayout(pnlEditUserLayout);
+        pnlEditUserLayout.setHorizontalGroup(
+            pnlEditUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditUserLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE))
+        );
+        pnlEditUserLayout.setVerticalGroup(
+            pnlEditUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEditUserLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlEditUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlUser, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlEditUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,20 +228,20 @@ public class User_Window extends javax.swing.JFrame {
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         User user = new User();
         
-        if(txtRole.getText().equals("") || txtPassword.getText().equals("") || txtUser.getText().equals(""))
+        if(cbxRole.getSelectedItem().toString().equals("") || txtPassword.getText().equals("") || txtUser.getText().equals(""))
         {
             JOptionPane.showMessageDialog(null,"Favor de introducir todos los campos requeridos");
         }
         else
         {
-            user.setRole(txtRole.getText());
+            user.setRole(cbxRole.getSelectedItem().toString());
             user.setUser_name(txtUser.getText());
             user.setPassword(txtPassword.getText());
             
             if(user.InsertUser())
             {
                 JOptionPane.showMessageDialog(null, "Usuario Agregado satisfactoriamente");
-                txtRole.setText("");
+                cargarTable();
                 txtUser.setText("");
                 txtPassword.setText("");
             }else
@@ -190,12 +293,15 @@ public class User_Window extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnInsert;
+    private javax.swing.JComboBox<String> cbxRole;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblRole;
     private javax.swing.JLabel lblUser;
+    private javax.swing.JPanel pnlEditUser;
     private javax.swing.JPanel pnlUser;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtRole;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

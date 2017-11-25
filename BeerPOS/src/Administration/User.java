@@ -6,6 +6,7 @@
 package Administration;
 import Connection.MySQL_Conexion;
 import java.sql.*;
+import javax.swing.table.DefaultTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,12 +16,12 @@ public class User {
     private String role;
     private String user_name;
     private String password;
-    
     public User()
     {
         role = "";
         user_name = "";
         password = "";
+       
     }
     
     public boolean InsertUser()
@@ -32,6 +33,22 @@ public class User {
             Statement Estancia = Conexion.createStatement();
             Estancia.executeUpdate("INSERT INTO Users(role, user_name, password)"+
                                   "VALUES('"+role+"','"+user_name+"',MD5('"+password+"'))");         
+        } catch (ClassNotFoundException | SQLException ex) {
+            response = false;
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return response;
+    }
+    
+    public boolean DeleteUser(int id)
+    {
+        boolean response = true;
+        try 
+        {
+            Connection Conexion = MySQL_Conexion.getConnection();
+            Statement Estancia = Conexion.createStatement();
+            Estancia.execute("DELETE FROM Users"+
+                              "WHERE id ='"+id+"'");         
         } catch (ClassNotFoundException | SQLException ex) {
             response = false;
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
