@@ -1,15 +1,15 @@
 
 package Administration;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ARTURO MEJIA
  */
 public class Pago extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Pago
-     */
+int a;
+    Pago_Window pg= new Pago_Window();
     public Pago() {
         initComponents();
     }
@@ -30,24 +30,38 @@ public class Pago extends javax.swing.JFrame {
         jbAceptar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
         lblNombrecliente = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nCliente = new javax.swing.JTextField();
         jrbTarjeta = new javax.swing.JRadioButton();
         jrbTarjetadebito = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        Direc = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tele = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("FORMA DE PAGO");
+        jLabel1.setText("Dar de alta FORMA DE PAGO");
         jLabel1.setToolTipText("");
 
         jrbEfectivo.setText("EFECTIVO");
+        jrbEfectivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbEfectivoActionPerformed(evt);
+            }
+        });
 
         jrbCredito.setText("CREDITO");
 
         jbAceptar.setText("Aceptar");
+        jbAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAceptarActionPerformed(evt);
+            }
+        });
 
         jbCancelar.setText("Cancelar");
 
@@ -59,37 +73,53 @@ public class Pago extends javax.swing.JFrame {
 
         jLabel2.setText("TIPO DE PAGO:");
 
+        jLabel3.setText("Direccion");
+
+        jLabel4.setText("Telefono");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombrecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(1, 1, 1)
+                            .addComponent(jrbEfectivo)
+                            .addGap(0, 0, 0)
+                            .addComponent(jrbCredito)
+                            .addGap(0, 0, 0)
+                            .addComponent(jrbTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(7, 7, 7)
+                            .addComponent(jrbTarjetadebito))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(78, 78, 78)
+                            .addComponent(jbAceptar)
+                            .addGap(80, 80, 80)
+                            .addComponent(jbCancelar)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jrbEfectivo)
-                .addGap(0, 0, 0)
-                .addComponent(jrbCredito)
-                .addGap(0, 0, 0)
-                .addComponent(jrbTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(jrbTarjetadebito))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(jbAceptar)
-                .addGap(80, 80, 80)
-                .addComponent(jbCancelar))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(lblNombrecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addGap(77, 77, 77)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(78, 78, 78)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(nCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                                    .addComponent(Direc)
+                                    .addComponent(tele))))))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,12 +127,20 @@ public class Pago extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombrecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
+                    .addComponent(nCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(Direc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tele, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jrbEfectivo)
                     .addComponent(jrbCredito)
@@ -111,11 +149,50 @@ public class Pago extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbAceptar)
-                    .addComponent(jbCancelar)))
+                    .addComponent(jbCancelar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
+     
+      a=Integer.parseInt(tele.getText());
+      if(nCliente.getText().equals("") || Direc.getText().equals("") || tele.getText().equals("") ||pg.Tele(a)==false)
+        {
+            JOptionPane.showMessageDialog(null,"Favor de introducir todos los campos requeridos");
+        }
+        else
+        {
+            pg.setNombre(nCliente.getText());
+            pg.setDomicilio(Direc.getText());
+            pg.setTelefono(Integer.parseInt(tele.getText()));
+            
+            if(pg.Insertar())
+            {
+                JOptionPane.showMessageDialog(null, "Usuario Agregado satisfactoriamente");
+                nCliente.setText("");
+                Direc.setText("");
+                tele.setText("");
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "Oops Error en la base de datos");
+            }
+        } 
+    }//GEN-LAST:event_jbAceptarActionPerformed
+
+    private void jrbEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbEfectivoActionPerformed
+         
+        if(nCliente.getText().equals("") || Direc.getText().equals("") || tele.getText().equals("") ||pg.Tele(a)==false)
+        {
+            JOptionPane.showMessageDialog(null,"Favor de introducir todos los campos requeridos");
+        }
+        else
+        {
+        
+        }          
+    }//GEN-LAST:event_jrbEfectivoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,10 +230,12 @@ public class Pago extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Direc;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton jbAceptar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JRadioButton jrbCredito;
@@ -164,5 +243,7 @@ public class Pago extends javax.swing.JFrame {
     private javax.swing.JRadioButton jrbTarjeta;
     private javax.swing.JRadioButton jrbTarjetadebito;
     private javax.swing.JLabel lblNombrecliente;
+    private javax.swing.JTextField nCliente;
+    private javax.swing.JTextField tele;
     // End of variables declaration//GEN-END:variables
 }
