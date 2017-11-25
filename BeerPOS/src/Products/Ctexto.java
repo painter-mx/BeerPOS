@@ -9,7 +9,9 @@ public class Ctexto extends javax.swing.JPanel {
         initComponents();
     }
    
-    
+    public void setCampo(String a){
+        campo.setText(a);
+    }
     public void setEti(String a){
         Eti.setText(a);
     }
