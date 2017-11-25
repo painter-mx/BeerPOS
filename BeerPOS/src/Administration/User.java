@@ -16,6 +16,7 @@ public class User {
     private String role;
     private String user_name;
     private String password;
+    private int id;
     //public DefaultTableModel Modelo;
     
     public User()
@@ -77,8 +78,7 @@ public class User {
         {
             Connection Conexion = MySQL_Conexion.getConnection();
             Statement Estancia = Conexion.createStatement();
-            Estancia.execute("DELETE FROM Users"+
-                              "WHERE id ='"+id+"'");         
+            Estancia.execute("DELETE FROM Users WHERE idUser = "+id);         
         } catch (ClassNotFoundException | SQLException ex) {
             response = false;
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,6 +86,30 @@ public class User {
         return response;
     }
     
+    public boolean UpdateUser()
+    {
+        boolean response = true;
+        try 
+        {
+            Connection Conexion = MySQL_Conexion.getConnection();
+            Statement Estancia = Conexion.createStatement();
+            Estancia.execute("UPDATE Users SET role = '"+role+"', user_name = '"+user_name+"', password = MD5('"+password+"') WHERE idUser = "+id);         
+        } catch (ClassNotFoundException | SQLException ex) {
+            response = false;
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return response; 
+    }
+    
+    public int getId()
+    {
+        return id;
+    }
+    
+    public void setId(int id)
+    {
+        this.id = id;
+    }
     public String getRole() {
         return role;
     }

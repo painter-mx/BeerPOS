@@ -21,14 +21,13 @@ import javax.swing.*;
  */
 public class User_Window extends javax.swing.JFrame {
 
-    private javax.swing.table.DefaultTableModel Modelo;
-    private User user1 = new User();
+    private DefaultTableModel Modelo;
+    private User user = new User();
     
     public User_Window() {
         initComponents();
         Modelo = (DefaultTableModel) tblUser.getModel();
-        user1.showUsers(Modelo);
-        //cargarTable();  
+        Modelo = user.showUsers(Modelo);
         frm_popUp();
     }
     
@@ -36,21 +35,44 @@ public class User_Window extends javax.swing.JFrame {
         {
             
             JPopupMenu popupMenu = new JPopupMenu();
-            JMenuItem menuItem1 = new JMenuItem("Editar");
-            JMenuItem menuItem2 = new JMenuItem("Eliminar");
+            JMenuItem menuItem1 = new JMenuItem("Eliminar");
+            JMenuItem menuItem2 = new JMenuItem("Editar");
             
             menuItem1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    int selectRow = tblUser.getSelectedRow();          
-                    JOptionPane.showMessageDialog(null,"Opción Editar" + selectRow);
+                    int selectRow = tblUser.getSelectedRow(); 
+                    if(selectRow != -1){
+                        int id = Integer.parseInt(tblUser.getValueAt(selectRow,0).toString()); 
+                        if(user.DeleteUser(id))
+                        {
+                            JOptionPane.showMessageDialog(null, "Usuario borrado exitosamente");
+                            Modelo = user.showUsers(Modelo);
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null,"Oops se encontró un error al borrar el usuario");
+                        }
+                    }
                 }
             });
             menuItem2.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    int selectRow = tblUser.getSelectedRow();  
-                    
+                    int selectRow = tblUser.getSelectedRow();
+                    if(selectRow != -1){
+                        int id = Integer.parseInt(tblUser.getValueAt(selectRow,0).toString());
+                        String userStr = String.valueOf(tblUser.getValueAt(selectRow,1));  
+                        String password = String.valueOf(tblUser.getValueAt(selectRow,2));
+                        String role     = String.valueOf(tblUser.getValueAt(selectRow,3));
+
+
+                        cbxRole.setSelectedItem(role);
+                        txtUser.setText(userStr);
+                        txtPassword.setText(password);
+                        user.setId(id);
+                        btnInsert.setText("Actualizar");
+                    }
                 }
             });
             popupMenu.add(menuItem1);
@@ -158,11 +180,11 @@ public class User_Window extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Usuario", "Contraseña", "Title 4"
+                "ID", "Usuario", "Contraseña", "Rol"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -210,7 +232,7 @@ public class User_Window extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        User user = new User();
+        //User user = new User();
         
         if(cbxRole.getSelectedItem().toString().equals("") || txtPassword.getText().equals("") || txtUser.getText().equals(""))
         {
@@ -221,16 +243,28 @@ public class User_Window extends javax.swing.JFrame {
             user.setRole(cbxRole.getSelectedItem().toString());
             user.setUser_name(txtUser.getText());
             user.setPassword(txtPassword.getText());
-            
-            if(user.InsertUser())
-            {
-                JOptionPane.showMessageDialog(null, "Usuario Agregado satisfactoriamente");
-                //cargarTable();
-                txtUser.setText("");
-                txtPassword.setText("");
+            if(btnInsert.getText().equals("Añadir")){
+                if(user.InsertUser())
+                {
+                    JOptionPane.showMessageDialog(null, "Usuario Agregado satisfactoriamente");
+                    Modelo = user.showUsers(Modelo);
+                    txtUser.setText("");
+                    txtPassword.setText("");
+                }else
+                {
+                    JOptionPane.showMessageDialog(null, "Oops Error en la base de datos");
+                }
             }else
             {
-                JOptionPane.showMessageDialog(null, "Oops Error en la base de datos");
+                if(user.UpdateUser())
+                {
+                    JOptionPane.showMessageDialog(null, "Usuario actualizado satisfactoriamente");
+                    Modelo = user.showUsers(Modelo);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Oops, Error en la base de datos");
+                }
             }
         }
     }//GEN-LAST:event_btnInsertActionPerformed
