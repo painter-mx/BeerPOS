@@ -22,56 +22,40 @@ import javax.swing.*;
 public class User_Window extends javax.swing.JFrame {
 
     private javax.swing.table.DefaultTableModel Modelo;
+    private User user1 = new User();
+    
     public User_Window() {
         initComponents();
-        Modelo = (DefaultTableModel) jTable1.getModel();
-        cargarTable();
+        Modelo = (DefaultTableModel) tblUser.getModel();
+        user1.showUsers(Modelo);
+        //cargarTable();  
         frm_popUp();
     }
-        private void cargarTable()
-    {
-            Modelo.setRowCount(0);
-            try {
-                
-              String sql = "SELECT user_name, password, role FROM Users ORDER BY created_at;";
-              Connection Conexion = MySQL_Conexion.getConnection();
-              Statement Estancia = Conexion.createStatement();
-              ResultSet Resultado = Estancia.executeQuery(sql);
-              
-              Object [] Renglones = new Object[Modelo.getColumnCount()];
-              
-              while(Resultado.next())
-              {
-                  Renglones[0] = Resultado.getString("user_name");
-                  Renglones[1] = Resultado.getString("password");
-                  Renglones[2] = Resultado.getString("role");
-                  Modelo.addRow(Renglones);
-              }
-              
-             }catch (ClassNotFoundException | SQLException ex) {
-               javax.swing.JOptionPane.showMessageDialog(this, "Error al intentar estalecer la conexion "+ ex.getMessage());
-            }
-    }
+    
         public void frm_popUp()
         {
+            
             JPopupMenu popupMenu = new JPopupMenu();
             JMenuItem menuItem1 = new JMenuItem("Editar");
             JMenuItem menuItem2 = new JMenuItem("Eliminar");
+            
             menuItem1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null,"Opción Editar");
+                    int selectRow = tblUser.getSelectedRow();          
+                    JOptionPane.showMessageDialog(null,"Opción Editar" + selectRow);
                 }
             });
             menuItem2.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null,"Opcion Borrar");
+                    int selectRow = tblUser.getSelectedRow();  
+                    
                 }
             });
             popupMenu.add(menuItem1);
             popupMenu.add(menuItem2);
-            jTable1.setComponentPopupMenu(popupMenu);
+            tblUser.setComponentPopupMenu(popupMenu);
         }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,7 +77,7 @@ public class User_Window extends javax.swing.JFrame {
         cbxRole = new javax.swing.JComboBox<>();
         pnlEditUser = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblUser = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,23 +153,23 @@ public class User_Window extends javax.swing.JFrame {
 
         pnlEditUser.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar/Eliminar Usuario"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Usuario", "Contraseña", "Rol"
+                "ID", "Usuario", "Contraseña", "Title 4"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblUser);
 
         javax.swing.GroupLayout pnlEditUserLayout = new javax.swing.GroupLayout(pnlEditUser);
         pnlEditUser.setLayout(pnlEditUserLayout);
@@ -241,7 +225,7 @@ public class User_Window extends javax.swing.JFrame {
             if(user.InsertUser())
             {
                 JOptionPane.showMessageDialog(null, "Usuario Agregado satisfactoriamente");
-                cargarTable();
+                //cargarTable();
                 txtUser.setText("");
                 txtPassword.setText("");
             }else
@@ -295,12 +279,12 @@ public class User_Window extends javax.swing.JFrame {
     private javax.swing.JButton btnInsert;
     private javax.swing.JComboBox<String> cbxRole;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblRole;
     private javax.swing.JLabel lblUser;
     private javax.swing.JPanel pnlEditUser;
     private javax.swing.JPanel pnlUser;
+    private javax.swing.JTable tblUser;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables

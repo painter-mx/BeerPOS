@@ -16,6 +16,8 @@ public class User {
     private String role;
     private String user_name;
     private String password;
+    //public DefaultTableModel Modelo;
+    
     public User()
     {
         role = "";
@@ -24,6 +26,34 @@ public class User {
        
     }
     
+    public DefaultTableModel showUsers(DefaultTableModel Modelo)
+    {       
+        //Modelo = new DefaultTableModel();
+        Modelo.setRowCount(0);
+        try {
+                
+            String sql = "SELECT idUser, user_name, password, role FROM Users ORDER BY created_at DESC;";
+            Connection Conexion = MySQL_Conexion.getConnection();
+            Statement Estancia = Conexion.createStatement();
+            ResultSet Resultado = Estancia.executeQuery(sql);
+              
+            Object [] Renglones = new Object[Modelo.getColumnCount()];
+              
+            while(Resultado.next())
+            {
+                Renglones[0] = Resultado.getInt("idUser");
+                Renglones[1] = Resultado.getString("user_name");
+                Renglones[2] = Resultado.getString("password");
+                Renglones[3] = Resultado.getString("role");
+                Modelo.addRow(Renglones);
+            }
+              
+            }catch (ClassNotFoundException | SQLException ex) {
+               javax.swing.JOptionPane.showMessageDialog(null, "Error al intentar estalecer la conexion "+ ex.getMessage());
+               return Modelo;
+            }
+        return Modelo;
+    }
     public boolean InsertUser()
     {
         boolean response = true;
