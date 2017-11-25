@@ -38,18 +38,19 @@ public boolean Insertar(){
         }
         return response;
 }
+ public boolean Validadt(String a){
+      int b=0;
+       try{
+          b=Integer.parseInt(a);
+          return true;
+      } catch(NumberFormatException ex){
+          javax.swing.JOptionPane.showMessageDialog(null,"error con el formato de telefono"+"/n"+"Inserte el numero nuevamente");
+          return false;
+      }
 
-public boolean Tele(int a){
-    try{ 
-        int b=a;
-   
-    return true;
-    }catch(NumberFormatException ex){
-    
-     
-        return false;
-    }
-}
+ }
+
+
         
     public String getNombre() {
         return Nombre;

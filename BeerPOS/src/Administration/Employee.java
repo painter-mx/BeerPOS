@@ -1,9 +1,14 @@
+
 /*
  * Description : this class contains attributes for Employees
  * Author      : Arturo Mejía Fonseca
  * Date        : 25/11/2017
  */
+
+
+
 package Administration;
+
 
 import Connection.MySQL_Conexion;
 import java.sql.Connection;
@@ -11,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 
 public class Employee {

@@ -11,7 +11,7 @@ public class MySQL_Conexion {
     private static String dbName = "BeerPOS",
                           URL = "localhost:3306", 
                           User = "root",
-                          Password = "root";
+                          Password = "";
     
     public static Connection getConnection() throws ClassNotFoundException, SQLException
     {
