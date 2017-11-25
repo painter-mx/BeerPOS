@@ -159,11 +159,11 @@ int a;
     private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
      
       a=Integer.parseInt(tele.getText());
-      if(nCliente.getText().equals("") || Direc.getText().equals("") || tele.getText().equals("") ||pg.Tele(a)==false)
+      if(nCliente.getText().equals("") || Direc.getText().equals("") || tele.getText().equals("") )
         {
             JOptionPane.showMessageDialog(null,"Favor de introducir todos los campos requeridos");
         }
-        else
+      else if(pg.Validadt(tele.getText()))
         {
             pg.setNombre(nCliente.getText());
             pg.setDomicilio(Direc.getText());
@@ -184,7 +184,7 @@ int a;
 
     private void jrbEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbEfectivoActionPerformed
          
-        if(nCliente.getText().equals("") || Direc.getText().equals("") || tele.getText().equals("") ||pg.Tele(a)==false)
+        if(nCliente.getText().equals("") || Direc.getText().equals("") || tele.getText().equals("") )
         {
             JOptionPane.showMessageDialog(null,"Favor de introducir todos los campos requeridos");
         }
