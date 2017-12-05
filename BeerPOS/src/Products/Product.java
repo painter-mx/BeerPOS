@@ -26,7 +26,7 @@ public class Product {
         Modelo.setRowCount(0);
         try {
                 
-            String sql = "SELECT idProduct,name, description, price FROM products ORDER BY created_at DESC;";
+            String sql = "SELECT idProduct,name, description, price FROM Products ORDER BY created_at DESC;";
             Connection Conexion = MySQL_Conexion.getConnection();
             Statement Estancia = Conexion.createStatement();
             ResultSet Resultado = Estancia.executeQuery(sql);

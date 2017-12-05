@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Product_Window extends javax.swing.JFrame {
     private DefaultTableModel Modelo;
-    private Product pr= new Product();
+    private Product pr = new Product();
     
     public Product_Window() {
         initComponents();
@@ -182,7 +182,8 @@ public void frm_popUp()
     }// </editor-fold>//GEN-END:initComponents
 
     private void JbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbActionPerformed
-        // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_JbActionPerformed
 
     /**
