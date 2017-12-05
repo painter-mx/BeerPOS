@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package beerpos;
+import Administration.AdminPanel;
+import POS.Sale_Window;
 import javax.swing.JOptionPane;
 /**
  *
@@ -115,9 +117,14 @@ public class Login_Window extends javax.swing.JFrame {
            role = login.Access(txtUserName.getText(), txtPassword.getText());
            if(role.equals("Cajero"))
            {
-               JOptionPane.showMessageDialog(null,"Password");
+               JOptionPane.showMessageDialog(null,"Modo cajero");
+               Sale_Window sale = new Sale_Window();
+               sale.show(true);
+               
            }else if(role.equals("Administrador")){
                JOptionPane.showMessageDialog(null,"Admin");
+               AdminPanel panel1 = new AdminPanel();
+               panel1.show(true);
            }else
            {
                JOptionPane.showMessageDialog(null, "Acceso no permitido");

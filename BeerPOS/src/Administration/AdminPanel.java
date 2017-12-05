@@ -30,17 +30,16 @@ public class AdminPanel extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        miAddUser = new javax.swing.JMenuItem();
-        miEditUser = new javax.swing.JMenuItem();
+        miAdUser = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        miAddPay = new javax.swing.JMenuItem();
-        miEditPay = new javax.swing.JMenuItem();
+        miAdPay = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        miAddEmployee = new javax.swing.JMenuItem();
-        miEditEmployee = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        miAdEmployee = new javax.swing.JMenuItem();
+        miAdCustomer = new javax.swing.JMenu();
         miAddCustomer = new javax.swing.JMenuItem();
-        miEditCustomer = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        miAdProducts = new javax.swing.JMenuItem();
+        miInventary = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,56 +56,54 @@ public class AdminPanel extends javax.swing.JFrame {
 
         jMenu1.setText("Usuarios");
 
-        miAddUser.setText("Crear usuario");
-        miAddUser.addActionListener(new java.awt.event.ActionListener() {
+        miAdUser.setText("Administrar Usuarios");
+        miAdUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAddUserActionPerformed(evt);
+                miAdUserActionPerformed(evt);
             }
         });
-        jMenu1.add(miAddUser);
-
-        miEditUser.setText("Editar usuario");
-        miEditUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miEditUserActionPerformed(evt);
-            }
-        });
-        jMenu1.add(miEditUser);
+        jMenu1.add(miAdUser);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Métodos de pago");
 
-        miAddPay.setText("Añadir método de pago");
-        miAddPay.addActionListener(new java.awt.event.ActionListener() {
+        miAdPay.setText("Administrar métodos de pago");
+        miAdPay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAddPayActionPerformed(evt);
+                miAdPayActionPerformed(evt);
             }
         });
-        jMenu2.add(miAddPay);
-
-        miEditPay.setText("Editar método de pago");
-        jMenu2.add(miEditPay);
+        jMenu2.add(miAdPay);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Empleados");
 
-        miAddEmployee.setText("Agregar empleado");
-        jMenu3.add(miAddEmployee);
-
-        miEditEmployee.setText("Editar empleado");
-        jMenu3.add(miEditEmployee);
+        miAdEmployee.setText("Administrador de empleados");
+        jMenu3.add(miAdEmployee);
 
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setText("Clientes");
+        miAdCustomer.setText("Clientes");
 
-        miAddCustomer.setText("Añadir cliente");
-        jMenu4.add(miAddCustomer);
+        miAddCustomer.setText("Administrador de clientes");
+        miAdCustomer.add(miAddCustomer);
 
-        miEditCustomer.setText("Editar cliente");
-        jMenu4.add(miEditCustomer);
+        jMenuBar1.add(miAdCustomer);
+
+        jMenu4.setText("Productos");
+
+        miAdProducts.setText("Administrador de Productos");
+        miAdProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAdProductsActionPerformed(evt);
+            }
+        });
+        jMenu4.add(miAdProducts);
+
+        miInventary.setText("Inventario");
+        jMenu4.add(miInventary);
 
         jMenuBar1.add(jMenu4);
 
@@ -132,18 +129,18 @@ public class AdminPanel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void miAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddUserActionPerformed
+    private void miAdUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAdUserActionPerformed
         User_Window userWindow = new User_Window();
         userWindow.setVisible(true);
-    }//GEN-LAST:event_miAddUserActionPerformed
+    }//GEN-LAST:event_miAdUserActionPerformed
 
-    private void miEditUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEditUserActionPerformed
+    private void miAdPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAdPayActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_miEditUserActionPerformed
+    }//GEN-LAST:event_miAdPayActionPerformed
 
-    private void miAddPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddPayActionPerformed
+    private void miAdProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAdProductsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_miAddPayActionPerformed
+    }//GEN-LAST:event_miAdProductsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,13 +184,12 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu miAdCustomer;
+    private javax.swing.JMenuItem miAdEmployee;
+    private javax.swing.JMenuItem miAdPay;
+    private javax.swing.JMenuItem miAdProducts;
+    private javax.swing.JMenuItem miAdUser;
     private javax.swing.JMenuItem miAddCustomer;
-    private javax.swing.JMenuItem miAddEmployee;
-    private javax.swing.JMenuItem miAddPay;
-    private javax.swing.JMenuItem miAddUser;
-    private javax.swing.JMenuItem miEditCustomer;
-    private javax.swing.JMenuItem miEditEmployee;
-    private javax.swing.JMenuItem miEditPay;
-    private javax.swing.JMenuItem miEditUser;
+    private javax.swing.JMenuItem miInventary;
     // End of variables declaration//GEN-END:variables
 }

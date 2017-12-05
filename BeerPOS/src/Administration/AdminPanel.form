@@ -9,20 +9,12 @@
             <Property name="text" type="java.lang.String" value="Usuarios"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="miAddUser">
+            <MenuItem class="javax.swing.JMenuItem" name="miAdUser">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Crear usuario"/>
+                <Property name="text" type="java.lang.String" value="Administrar Usuarios"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAddUserActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miEditUser">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Editar usuario"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miEditUserActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAdUserActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -32,18 +24,13 @@
             <Property name="text" type="java.lang.String" value="M&#xe9;todos de pago"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="miAddPay">
+            <MenuItem class="javax.swing.JMenuItem" name="miAdPay">
               <Properties>
-                <Property name="text" type="java.lang.String" value="A&#xf1;adir m&#xe9;todo de pago"/>
+                <Property name="text" type="java.lang.String" value="Administrar m&#xe9;todos de pago"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAddPayActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAdPayActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miEditPay">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Editar m&#xe9;todo de pago"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -52,31 +39,41 @@
             <Property name="text" type="java.lang.String" value="Empleados"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="miAddEmployee">
+            <MenuItem class="javax.swing.JMenuItem" name="miAdEmployee">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar empleado"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miEditEmployee">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Editar empleado"/>
+                <Property name="text" type="java.lang.String" value="Administrador de empleados"/>
               </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu4">
+        <Menu class="javax.swing.JMenu" name="miAdCustomer">
           <Properties>
             <Property name="text" type="java.lang.String" value="Clientes"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miAddCustomer">
               <Properties>
-                <Property name="text" type="java.lang.String" value="A&#xf1;adir cliente"/>
+                <Property name="text" type="java.lang.String" value="Administrador de clientes"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miEditCustomer">
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Productos"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="miAdProducts">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Editar cliente"/>
+                <Property name="text" type="java.lang.String" value="Administrador de Productos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAdProductsActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miInventary">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Inventario"/>
               </Properties>
             </MenuItem>
           </SubComponents>
