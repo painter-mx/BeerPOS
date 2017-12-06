@@ -46,7 +46,7 @@ public class User_Window extends javax.swing.JFrame {
                         int id = Integer.parseInt(tblUser.getValueAt(selectRow,0).toString()); 
                         if(user.DeleteUser(id))
                         {
-                            JOptionPane.showMessageDialog(null, "Usuario borrado exitosamente");
+                            JOptionPane.showMessageDialog(null, "Producto Eliminado correctamente");
                             Modelo = user.showUsers(Modelo);
                         }
                         else
