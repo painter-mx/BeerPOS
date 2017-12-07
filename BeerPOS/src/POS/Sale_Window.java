@@ -34,7 +34,7 @@ public class Sale_Window extends javax.swing.JFrame {
         Concept = new TextAutoCompleter(txtProduct);
         Modelo = (DefaultTableModel) tblProducts.getModel();
         Modelo = sale.showProducts(Modelo);
-        loadTotal();
+        loadWindow();
         frm_popUp();
         //LoadAutoCompleter();
     }
@@ -135,6 +135,8 @@ public class Sale_Window extends javax.swing.JFrame {
 
         txtTotal.setEditable(false);
 
+        txtOrderNumber.setEditable(false);
+
         jLabel6.setText("Método de pago:");
 
         cbxPayMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Cheque", "Transferencia", "Tarjeta de credito" }));
@@ -147,6 +149,11 @@ public class Sale_Window extends javax.swing.JFrame {
         });
 
         btnComplete.setText("Generar Pedido");
+        btnComplete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -190,7 +197,7 @@ public class Sale_Window extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtProduct)))
                                 .addGap(43, 43, 43)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
                                 .addGap(10, 10, 10))
                             .addComponent(jScrollPane1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -260,8 +267,7 @@ public class Sale_Window extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -273,11 +279,21 @@ public class Sale_Window extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void loadTotal()
+    public void loadWindow()
     {
         txtTotal.setText(sale.getTotal().toString());
         txtSubtotal.setText(sale.getSubTotal().toString());
         txtIVA.setText(sale.getIVA().toString());
+        txtOrderNumber.setText(sale.getOrder_number());
+        //Modelo = sale.showProducts(Modelo);
+    }
+    
+    public void clearWindow()
+    {
+        txtCustomer.setText("");
+        ftxtDate.setText("");
+        txtQuantity.setText("");
+        txtProduct.setText("");
     }
     public void frm_popUp()
         {
@@ -296,7 +312,7 @@ public class Sale_Window extends javax.swing.JFrame {
                         {
                             JOptionPane.showMessageDialog(null, "Producto Eliminado correctamente");
                             Modelo = sale.showProducts(Modelo);
-                            loadTotal();
+                            loadWindow();
                         }
                         else
                         {
@@ -333,22 +349,32 @@ public class Sale_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCustomerKeyReleased
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        sale.setCustomer(txtCustomer.getText());
-        sale.setDate_of_delivery(ftxtDate.getText());
-        sale.setEmployee(1);
-        sale.setOrder_number("Raldoo01");
-        sale.setPayment_method("Efectivo");
-        sale.setProduct(txtProduct.getText());
-        sale.setQuantity(Integer.parseInt(txtQuantity.getText()));
         
-        if(sale.insertProduct())
+        if(!txtCustomer.getText().equals("") 
+                && !ftxtDate.getText().equals("") 
+                && !txtOrderNumber.getText().equals("")
+                && !cbxPayMethod.getSelectedItem().equals("")
+                && !txtProduct.getText().equals("")
+                && !txtQuantity.getText().equals(""))
         {
-            Modelo = sale.showProducts(Modelo);
-            txtProduct.setText("");
-            txtQuantity.setText("");
+            sale.setCustomer(txtCustomer.getText());
+            sale.setDate_of_delivery(ftxtDate.getText());
+            sale.setEmployee(1);
+            sale.setOrder_number(txtOrderNumber.getText());
+            sale.setPayment_method(cbxPayMethod.getSelectedItem().toString());
+            sale.setProduct(txtProduct.getText());
+            sale.setQuantity(Integer.parseInt(txtQuantity.getText()));
+
+            if(sale.insertProduct())
+            {
+                Modelo = sale.showProducts(Modelo);
+                txtProduct.setText("");
+                txtQuantity.setText("");
+            }
+
+            loadWindow();
         }
-        
-        loadTotal();
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductKeyReleased
@@ -365,6 +391,17 @@ public class Sale_Window extends javax.swing.JFrame {
              }
         }
     }//GEN-LAST:event_txtProductKeyReleased
+
+    private void btnCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteActionPerformed
+       Modelo = sale.showProducts(Modelo);
+        if(Modelo.getRowCount() != 0){
+            sale.insertSale();
+            sale.setOrder_number((Integer.parseInt(sale.getOrder_number()) + 1) + "");
+            clearWindow();
+            Modelo = sale.showProducts(Modelo);
+            loadWindow();
+       }
+    }//GEN-LAST:event_btnCompleteActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

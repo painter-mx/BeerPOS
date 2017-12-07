@@ -32,7 +32,39 @@ public class Sale {
     Double subTotal;
     Double IVA;
     
-     public DefaultTableModel showProducts(DefaultTableModel Modelo)
+    public Sale()
+    {
+        customer ="";
+        quantity = 0;
+        date_of_delivery = "";
+        employee = 0;
+        product = "";
+        payment_method = "";
+        order_number = "";
+        total = 0.0;
+        subTotal = 0.0;
+        IVA = 0.0;
+        calcOrderNumber();
+    }
+    
+    public void calcOrderNumber()
+    {   
+        Connection Conexion;
+        try {
+            String sql = "SELECT DISTINCT order_number as rowsCount FROM Sales";
+            Conexion = MySQL_Conexion.getConnection();
+            Statement Estancia = Conexion.createStatement();
+            ResultSet Resultado = Estancia.executeQuery(sql);
+            Resultado.last();
+            order_number += Resultado.getRow()+"";
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Sale.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Sale.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public DefaultTableModel showProducts(DefaultTableModel Modelo)
     {       
         //Modelo = new DefaultTableModel();
         Modelo.setRowCount(0);
@@ -44,7 +76,7 @@ public class Sale {
                         "FROM Products p\n" +
                         "JOIN Sales s\n" +
                         "ON p.idProduct = s.product_id\n" +
-                        "WHERE s.order_number = 'Raldoo01';";
+                        "WHERE s.order_number = '" + order_number + "';";
             Connection Conexion = MySQL_Conexion.getConnection();
             Statement Estancia = Conexion.createStatement();
             ResultSet Resultado = Estancia.executeQuery(sql);           
@@ -188,6 +220,26 @@ public class Sale {
         }
         return response;
     }
+    
+    public boolean insertSale()
+    {
+        boolean response = true;
+        String sql;
+        try 
+        {      
+            sql = "INSERT INTO Finances(status,order_number) VALUES('Preventa','" + order_number + "');";
+            System.out.println(sql);
+            Connection Conexion = MySQL_Conexion.getConnection();
+            Statement Estancia = Conexion.createStatement();
+            Estancia.executeUpdate(sql);         
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            response = false;
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        return response;
+    }
+    
 
     public String getCustomer() {
         return customer;
