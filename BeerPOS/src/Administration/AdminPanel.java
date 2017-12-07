@@ -5,6 +5,9 @@
  */
 package Administration;
 
+import Products.Inventary_Window;
+import Products.Product_Window;
+
 /**
  *
  * @author isai
@@ -31,8 +34,6 @@ public class AdminPanel extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         miAdUser = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        miAdPay = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         miAdEmployee = new javax.swing.JMenuItem();
         miAdCustomer = new javax.swing.JMenu();
@@ -66,21 +67,14 @@ public class AdminPanel extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Métodos de pago");
-
-        miAdPay.setText("Administrar métodos de pago");
-        miAdPay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAdPayActionPerformed(evt);
-            }
-        });
-        jMenu2.add(miAdPay);
-
-        jMenuBar1.add(jMenu2);
-
         jMenu3.setText("Empleados");
 
         miAdEmployee.setText("Administrador de empleados");
+        miAdEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAdEmployeeActionPerformed(evt);
+            }
+        });
         jMenu3.add(miAdEmployee);
 
         jMenuBar1.add(jMenu3);
@@ -88,6 +82,11 @@ public class AdminPanel extends javax.swing.JFrame {
         miAdCustomer.setText("Clientes");
 
         miAddCustomer.setText("Administrador de clientes");
+        miAddCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAddCustomerActionPerformed(evt);
+            }
+        });
         miAdCustomer.add(miAddCustomer);
 
         jMenuBar1.add(miAdCustomer);
@@ -103,6 +102,11 @@ public class AdminPanel extends javax.swing.JFrame {
         jMenu4.add(miAdProducts);
 
         miInventary.setText("Inventario");
+        miInventary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miInventaryActionPerformed(evt);
+            }
+        });
         jMenu4.add(miInventary);
 
         jMenuBar1.add(jMenu4);
@@ -134,13 +138,25 @@ public class AdminPanel extends javax.swing.JFrame {
         userWindow.setVisible(true);
     }//GEN-LAST:event_miAdUserActionPerformed
 
-    private void miAdPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAdPayActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_miAdPayActionPerformed
-
     private void miAdProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAdProductsActionPerformed
-        // TODO add your handling code here:
+        Product_Window productWindow = new Product_Window();
+        productWindow.setVisible(true);
     }//GEN-LAST:event_miAdProductsActionPerformed
+
+    private void miInventaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miInventaryActionPerformed
+        Inventary_Window inventaryWindow = new Inventary_Window();
+        inventaryWindow.setVisible(true);
+    }//GEN-LAST:event_miInventaryActionPerformed
+
+    private void miAdEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAdEmployeeActionPerformed
+        Employee_Window employeeWindow = new Employee_Window();
+        employeeWindow.setVisible(true);
+    }//GEN-LAST:event_miAdEmployeeActionPerformed
+
+    private void miAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddCustomerActionPerformed
+        Customer_Window customerWindow = new Customer_Window();
+        customerWindow.setVisible(true);
+    }//GEN-LAST:event_miAddCustomerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,14 +195,12 @@ public class AdminPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu miAdCustomer;
     private javax.swing.JMenuItem miAdEmployee;
-    private javax.swing.JMenuItem miAdPay;
     private javax.swing.JMenuItem miAdProducts;
     private javax.swing.JMenuItem miAdUser;
     private javax.swing.JMenuItem miAddCustomer;

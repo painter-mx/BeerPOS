@@ -34,7 +34,7 @@ public class Sale_Window extends javax.swing.JFrame {
         Concept = new TextAutoCompleter(txtProduct);
         Modelo = (DefaultTableModel) tblProducts.getModel();
         Modelo = sale.showProducts(Modelo);
-        txtSubtotal.setText(sale.getTotal().toString());
+        loadTotal();
         frm_popUp();
         //LoadAutoCompleter();
     }
@@ -273,6 +273,12 @@ public class Sale_Window extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void loadTotal()
+    {
+        txtTotal.setText(sale.getTotal().toString());
+        txtSubtotal.setText(sale.getSubTotal().toString());
+        txtIVA.setText(sale.getIVA().toString());
+    }
     public void frm_popUp()
         {
             
@@ -290,7 +296,7 @@ public class Sale_Window extends javax.swing.JFrame {
                         {
                             JOptionPane.showMessageDialog(null, "Producto Eliminado correctamente");
                             Modelo = sale.showProducts(Modelo);
-                            txtSubtotal.setText(sale.getTotal().toString());
+                            loadTotal();
                         }
                         else
                         {
@@ -342,7 +348,7 @@ public class Sale_Window extends javax.swing.JFrame {
             txtQuantity.setText("");
         }
         
-        txtSubtotal.setText(sale.getTotal().toString());
+        loadTotal();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductKeyReleased

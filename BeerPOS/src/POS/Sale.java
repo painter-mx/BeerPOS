@@ -29,13 +29,17 @@ public class Sale {
     String payment_method;
     String order_number;
     Double total;
+    Double subTotal;
+    Double IVA;
     
      public DefaultTableModel showProducts(DefaultTableModel Modelo)
     {       
         //Modelo = new DefaultTableModel();
         Modelo.setRowCount(0);
         try {
-           total = 0.0;     
+           total = 0.0;
+           subTotal = 0.0;
+           IVA = 0.0;
             String sql = "SELECT p.idProduct, s.quantity, p.name, p.price, (s.quantity * p.price) as total\n" +
                         "FROM Products p\n" +
                         "JOIN Sales s\n" +
@@ -43,8 +47,7 @@ public class Sale {
                         "WHERE s.order_number = 'Raldoo01';";
             Connection Conexion = MySQL_Conexion.getConnection();
             Statement Estancia = Conexion.createStatement();
-            ResultSet Resultado = Estancia.executeQuery(sql);
-              
+            ResultSet Resultado = Estancia.executeQuery(sql);           
             Object [] Renglones = new Object[Modelo.getColumnCount()];
               
             while(Resultado.next())
@@ -55,20 +58,39 @@ public class Sale {
                 Renglones[3] = Resultado.getDouble("p.price");
                 Renglones[4] = Resultado.getDouble("total");
                 Modelo.addRow(Renglones);
-                total+=Resultado.getDouble("total");
+                subTotal+=Resultado.getDouble("total");
             }
-              System.out.println(total);
+              System.out.println(subTotal);
+              IVA = (subTotal * 0.16);
+              total = IVA + subTotal;
             }catch (ClassNotFoundException | SQLException ex) {
                javax.swing.JOptionPane.showMessageDialog(null, "Error al intentar estalecer la conexion "+ ex.getMessage());
                return Modelo;
             }
         return Modelo;
     }
+
+    public Double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public Double getIVA() {
+        return IVA;
+    }
+
+    public void setIVA(Double IVA) {
+        this.IVA = IVA;
+    }
      
      
     public String[] loadCustomer(String searchWord)
     {
-        String [] Values = new String[2];
+        String [] Values;
+        
         int i = 0;
         try {
                 
@@ -78,6 +100,11 @@ public class Sale {
             ResultSet Resultado = Estancia.executeQuery(sql);
             System.out.println(sql);
             
+            Resultado.last();
+            int length = Resultado.getRow();
+            Resultado.beforeFirst();
+            Values =  new String[length];
+            System.out.println(length);
             while(Resultado.next())
             {
                 
@@ -87,6 +114,7 @@ public class Sale {
               
             }catch (ClassNotFoundException | SQLException ex) {
                javax.swing.JOptionPane.showMessageDialog(null, "Error al intentar estalecer la conexion "+ ex.getMessage());
+               Values = new String[1];
                return Values;
             }
         return Values;
@@ -94,15 +122,21 @@ public class Sale {
     
     public String[] loadProducts(String searchWord)
     {
-        String [] Values = new String[2];
+        String [] Values;
         int i = 0;
         try {
                 
-            String sql = "SELECT name FROM Products WHERE name LIKE '%"+searchWord+"%' ORDER BY name ASC LIMIT 2;";
+            String sql = "SELECT name FROM Products WHERE name LIKE '%"+searchWord+"%' ORDER BY name ASC LIMIT 10;";
             Connection Conexion = MySQL_Conexion.getConnection();
             Statement Estancia = Conexion.createStatement();
             ResultSet Resultado = Estancia.executeQuery(sql);
             System.out.println(sql);
+            
+            Resultado.last();
+            int length = Resultado.getRow();
+            Resultado.beforeFirst();
+            Values =  new String[length];
+            System.out.println(length);
             
             while(Resultado.next())
             {
@@ -113,6 +147,7 @@ public class Sale {
               
             }catch (ClassNotFoundException | SQLException ex) {
                javax.swing.JOptionPane.showMessageDialog(null, "Error al intentar estalecer la conexion "+ ex.getMessage());
+               Values = new String[1];
                return Values;
             }
         return Values;
@@ -123,9 +158,8 @@ public class Sale {
         boolean response = true;
         
         try 
-        {
-            sql = "INSERT INTO Sales(quantity,date_of_delivery, employee_id, customer_id, product_id, payment_method_id, order_number) "
-                    + "VALUES ("+quantity+", '"+date_of_delivery+"'," + employee + ",(SELECT idCustomer FROM Customers WHERE name = '" + customer + "' LIMIT 1),(SELECT idProduct FROM Products WHERE name = '" + product + "' LIMIT 1),(SELECT idPayment_method FROM Payment_methods WHERE name = '" + payment_method + "' LIMIT 1),'" + order_number + "');"; 
+        {      
+            sql = "CALL fib_create_sale("+ quantity + ", '"+ date_of_delivery  + "' ," + employee + ", '" + customer + "' , '" + product + "', '" + payment_method + "' , '" + order_number + "');";
             System.out.println(sql);
             Connection Conexion = MySQL_Conexion.getConnection();
             Statement Estancia = Conexion.createStatement();
@@ -143,7 +177,7 @@ public class Sale {
     {
         boolean response = true;
         
-                try 
+        try 
         {
             Connection Conexion = MySQL_Conexion.getConnection();
             Statement Estancia = Conexion.createStatement();

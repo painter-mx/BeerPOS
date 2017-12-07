@@ -8,7 +8,9 @@ package beerpos;
 public class BeerPOS {
 
     public static void main(String[] args) {
-
+        
+        Login_Window login = new Login_Window();
+        login.setVisible(true);
     }
     
 }

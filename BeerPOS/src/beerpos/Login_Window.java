@@ -120,11 +120,13 @@ public class Login_Window extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(null,"Modo cajero");
                Sale_Window sale = new Sale_Window();
                sale.show(true);
+               this.show(false);
                
            }else if(role.equals("Administrador")){
                JOptionPane.showMessageDialog(null,"Admin");
                AdminPanel panel1 = new AdminPanel();
                panel1.show(true);
+               this.show(false);
            }else
            {
                JOptionPane.showMessageDialog(null, "Acceso no permitido");
