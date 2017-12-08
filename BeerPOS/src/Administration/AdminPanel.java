@@ -5,8 +5,10 @@
  */
 package Administration;
 
+import POS.Sale;
 import Products.Inventary_Window;
 import Products.Product_Window;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,11 +16,13 @@ import Products.Product_Window;
  */
 public class AdminPanel extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdminPanel
-     */
+    private DefaultTableModel Modelo;
+    Calendar calendar = new Calendar();
+    
     public AdminPanel() {
         initComponents();
+        Modelo = (DefaultTableModel) tblCalendar.getModel();
+        Modelo = calendar.showCalendar(Modelo);
     }
 
     /**
@@ -31,6 +35,8 @@ public class AdminPanel extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCalendar = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         miAdUser = new javax.swing.JMenuItem();
@@ -44,15 +50,44 @@ public class AdminPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agenda"));
+
+        tblCalendar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Folio", "Cliente", "Fecha de entrega", "Total", "Estado del pedido"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblCalendar);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 781, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 457, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Usuarios");
@@ -199,11 +234,13 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu miAdCustomer;
     private javax.swing.JMenuItem miAdEmployee;
     private javax.swing.JMenuItem miAdProducts;
     private javax.swing.JMenuItem miAdUser;
     private javax.swing.JMenuItem miAddCustomer;
     private javax.swing.JMenuItem miInventary;
+    private javax.swing.JTable tblCalendar;
     // End of variables declaration//GEN-END:variables
 }

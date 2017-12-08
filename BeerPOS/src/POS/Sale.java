@@ -227,7 +227,7 @@ public class Sale {
         String sql;
         try 
         {      
-            sql = "INSERT INTO Finances(status,order_number) VALUES('Preventa','" + order_number + "');";
+            sql = "INSERT INTO Finances(status,order_number,total) VALUES('Preventa','" + order_number + "', " + total +");";
             System.out.println(sql);
             Connection Conexion = MySQL_Conexion.getConnection();
             Statement Estancia = Conexion.createStatement();
