@@ -182,7 +182,27 @@ public void frm_popUp()
     }// </editor-fold>//GEN-END:initComponents
 
     private void JbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbActionPerformed
-        
+if(ct1.getCampo().equals("") || ct1.getCampo().equals("") || ct3.getCampo().equals("") )
+        {
+            JOptionPane.showMessageDialog(null,"Favor de introducir todos los campos requeridos");
+        }
+      else if(pr.Validadt(ct3.getCampo()))
+        {
+            pr.setNombre(ct1.getCampo());
+            pr.setDescripcion(ct2.getCampo());
+            pr.setPrecio(Integer.parseInt(ct3.getCampo()));
+            
+            if(pr.InsertProduct())
+            {
+                JOptionPane.showMessageDialog(null, "Usuario Agregado satisfactoriamente");
+                ct1.setCampo("");
+                ct2.setCampo("");
+                ct3.setCampo("");
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "Oops Error en la base de datos");
+            }
+        }           
         
     }//GEN-LAST:event_JbActionPerformed
 

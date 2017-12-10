@@ -8,10 +8,10 @@ package Connection;
 import java.sql.*;
 public class MySQL_Conexion {
     
-    private static String dbName = "BeerPOS",
+    private static String dbName = "beerpos",
                           URL = "localhost:3306", 
                           User = "root",
-                          Password = "root";
+                          Password ="";
     
     public static Connection getConnection() throws ClassNotFoundException, SQLException
     {
